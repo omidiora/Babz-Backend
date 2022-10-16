@@ -119,6 +119,8 @@ export const IMAGE = {
   intro_3: require('../assets/image/intro_3.png'),
   intro_4: require('../assets/image/intro_4.png'),
   back: require('../assets/image/back.jpg'),
+  foodie: require('../assets/image/foodie.png'),
+  
 };
 
 export const symbols = {

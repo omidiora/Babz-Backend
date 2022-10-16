@@ -121,13 +121,6 @@ const PoundedYam = props => {
     );
   };
 
-  const fetchuser = async () => {
-    const token = await AsyncStorage.getItem(preferences.KEYS.ACCESS_TOKEN);
-    console.log(token, 'toake');
-  };
-  useEffect(() => {
-    fetchuser();
-  }, []);
 
   const showConfirmDialog = id => {
     return Alert.alert(

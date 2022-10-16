@@ -105,7 +105,7 @@ const BussinessDetail = props => {
       setError(validator.errors.all());
     } else {
       dispatch(
-        updateBusinessAction(
+        updateBusinebssAction(
           {
             business: {
               name: business?.business_name,

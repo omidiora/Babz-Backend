@@ -25,7 +25,7 @@ export const getAllTransactionAction = () => {
       type: GET_ALL_TRANSACTION_LOADING,
     });
     try {
-      const {data} = await instance.get('/food');
+      const {data} = await instance.get('/specific_food');
 
       console.log(data, 'adlndknknksnknskn');
       dispatch({
@@ -89,27 +89,7 @@ export const getAllWithDrawerAction = () => {
   };
 };
 
-export const getAllWithPaymentAction = () => {
-  return async dispatch => {
-    dispatch({
-      type: GET_ALL_PAYMENT_LOADING,
-    });
-    try {
-      const {data} = await instance.get('/payment/requests');
-      dispatch({
-        //
-        type: GET_ALL_PAYMENT_SUCCESS,
-        payload: data.data,
-      });
-      return data.data;
-    } catch (err) {
-      console.log(err.response.data, 'error');
-      dispatch({
-        type: GET_ALL_PAYMENT_FAILED,
-      });
-    }
-  };
-};
+
 
 export const MakeWithDrawalRequestAction = details => {
   return async dispatch => {

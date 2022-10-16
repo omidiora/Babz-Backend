@@ -24,7 +24,10 @@ import {ListItem, Avatar} from '@rneui/themed';
 import AppBar from '../component/AppBar';
 import preferences from '../utils/preferences';
 import AsyncStorage from '@react-native-community/async-storage';
-import {deleteUserBankDetailsAction} from '../redux/bank/action';
+import {
+  deleteUserBankDetailsAction,
+  getAllBankAction,
+} from '../redux/bank/action';
 
 // MaterialCommunityIcons
 // Ionicons
@@ -41,8 +44,8 @@ import {deleteUserBankDetailsAction} from '../redux/bank/action';
 const Soup = props => {
   const {navigation} = props;
   const user = useSelector(state => state?.auth?.login_user?.user);
-  const AllFood = useSelector(state => state.transaction?.data || []);
-  const AllFoods = useSelector(state => state.transaction?.data || []);
+  const AllFood = useSelector(state => state.bank.bank || []);
+  const AllFoods = useSelector(state => state.bank.bank );
   console.log(AllFoods, 'adadd');
   const [profiletatus, setprofiletatus] = useState(false);
   const [bussinessStatus, setBussinessStatus] = useState(false);
@@ -50,8 +53,11 @@ const Soup = props => {
   const [bankStatus, setBankStatus] = useState(false);
 
   useEffect(() => {
-    dispatch(getAllTransactionByPaginationAction());
+    dispatch(getAllBankAction());
   }, []);
+
+  const AllFoo = useSelector(state => state);
+  console.log(AllFoo, '11123232');
 
   const dispatch = useDispatch();
 

@@ -26,7 +26,7 @@ export const getAllBankAction = payload => {
 
       return data.data;
     } catch (error) {
-      console.log(error.response.data, 'error from update z Action');
+      console.log(error, 'error from update z Action');
       dispatch({
         type: GET_ALL_BANK_FAILED,
         error: error,

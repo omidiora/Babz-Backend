@@ -72,7 +72,7 @@ const Splash = ({navigation}) => {
     <View style={styles._mainContainer}>
       <AppBar type="dark" backgroundColor={COLOR.whiteColor} />
       <View style={styles._container}>
-        <Image source={IMAGE.homeIcon} style={styles.image} />
+        <Image source={IMAGE.foodie} style={styles.image} />
         <Text style={styles.text}>Foodie</Text>
       </View>
     </View>

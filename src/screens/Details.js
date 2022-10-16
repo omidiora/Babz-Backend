@@ -6,15 +6,37 @@ import RenderHtml from 'react-native-render-html';
 import {useWindowDimensions} from 'react-native';
 
 const Details = props => {
-  console.log(props.route?.params?.params, '1232322');
+  console.log(props.route?.params?.item?.image == 'undefined', '1232322');
   // props.route?.params?.params?.image
   const {width} = useWindowDimensions();
   return (
     <ScrollView contentContainerStyle={{paddingBottom: WP(30)}}>
       {/* props.route?.params?.item?.image */}
       {/* props.route?.params?.params?.photo */}
+      {props.route?.params?.params?.photo && (
+        <Image
+          source={{
+            // uri: `https://babzbackend.herokuapp.com/${props.route?.params?.params?.photo}`,
 
-      {props.route?.params?.item?.image == 'undefined' ? (
+            uri: `https://babzbackend.herokuapp.com${props.route?.params?.params?.photo}`,
+          }}
+          style={{width: '200%', height: 200, top: 10, resizeMode: 'cover'}}
+        />
+      )}
+      {props.route?.params?.item?.image && (
+        <Image
+          source={props.route?.params?.item?.image}
+          style={{width: '200%', height: 200, top: 10, resizeMode: 'cover'}}
+        />
+      )}
+      {props.route?.params?.params?.image && (
+        <Image
+          source={props.route?.params?.params?.image}
+          style={{width: '200%', height: 200, top: 10, resizeMode: 'cover'}}
+        />
+      )}
+
+      {/* {props.route?.params?.item?.image == undefined ? (
         <Image
           source={{
             // uri: `https://babzbackend.herokuapp.com/${props.route?.params?.params?.photo}`,
@@ -32,8 +54,8 @@ const Details = props => {
             }
             style={{width: '200%', height: 200, top: 10, resizeMode: 'cover'}}
           />
-        </>
-      )}
+        </> */}
+      {/* )} */}
       <View>
         <View style={styles.dataContainer}>
           <View>

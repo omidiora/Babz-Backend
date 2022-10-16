@@ -519,13 +519,7 @@ const Dashboard = props => {
     );
   };
 
-  const fetchuser = async () => {
-    const token = await AsyncStorage.getItem(preferences.KEYS.ACCESS_TOKEN);
-    console.log(token, 'toake');
-  };
-  useEffect(() => {
-    fetchuser();
-  }, []);
+
 
   const showConfirmDialog = id => {
     return Alert.alert(
@@ -621,7 +615,7 @@ const Dashboard = props => {
         <TouchableOpacity
           style={styles.allFoodContainer}
           onPress={() => navigation.navigate('AllFood')}>
-          <Text style={styles.text1}>ALL FOOD</Text>
+          <Text style={styles.text1}> Food</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
