@@ -8,6 +8,7 @@ import {
   FlatList,
   Alert,
   ImageBackground,
+  RefreshControl,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -45,19 +46,19 @@ const Soup = props => {
   const {navigation} = props;
   const user = useSelector(state => state?.auth?.login_user?.user);
   const AllFood = useSelector(state => state.bank.bank || []);
-  const AllFoods = useSelector(state => state.bank.bank );
+  const AllFoods = useSelector(state => state.bank.bank);
   console.log(AllFoods, 'adadd');
   const [profiletatus, setprofiletatus] = useState(false);
   const [bussinessStatus, setBussinessStatus] = useState(false);
   const [complinanceStatus, setComplinanceStatus] = useState(false);
   const [bankStatus, setBankStatus] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     dispatch(getAllBankAction());
   }, []);
 
   const AllFoo = useSelector(state => state);
-  console.log(AllFoo, '11123232');
 
   const dispatch = useDispatch();
 
@@ -69,6 +70,10 @@ const Soup = props => {
   };
 
   const [showBox, setShowBox] = useState(true);
+
+  const onRefresh = () => {
+    dispatch(getAllBankAction());
+  };
 
   const renderEmptyContainer = () => {
     return (
@@ -125,6 +130,8 @@ const Soup = props => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         ListEmptyComponent={renderEmptyContainer()}
+        onRefresh={() => onRefresh()}
+        refreshing={refresh}
         style={{
           height: WP(115),
           top: WP(-1),
@@ -161,7 +168,7 @@ const Soup = props => {
                   />
                 </TouchableOpacity>
 
-                <>
+                <> 
                   <ListItem.Content>
                     <TouchableOpacity
                       onPress={() =>

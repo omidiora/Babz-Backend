@@ -227,11 +227,12 @@ const AllFood = props => {
   const {navigation} = props;
   const user = useSelector(state => state?.auth?.login_user?.user);
   const AllFood = useSelector(state => state?.transaction?.data || []);
-  console.log(AllFood, 'lmlsmlsm');
+
   const [profiletatus, setprofiletatus] = useState(false);
   const [bussinessStatus, setBussinessStatus] = useState(false);
   const [complinanceStatus, setComplinanceStatus] = useState(false);
   const [bankStatus, setBankStatus] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     dispatch(getAllTransactionAction());
@@ -246,6 +247,9 @@ const AllFood = props => {
     return `#${randomColor}`;
   };
 
+  const onRefresh = () => {
+    dispatch(getAllTransactionAction());
+  };
   const [showBox, setShowBox] = useState(true);
 
   const renderEmptyContainer = () => {
@@ -289,13 +293,18 @@ const AllFood = props => {
     dispatch(deleteUserBankDetailsAction(id));
   };
 
+  let totoalFood = [...AllFood, ...Food2];
+
+ 
   return (
     <View style={styles._mainContainer}>
       <FlatList
-        data={Food2}
+        data={totoalFood}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         ListEmptyComponent={renderEmptyContainer()}
+        onRefresh={() => onRefresh()}
+        refreshing={refresh}
         style={{
           height: WP(115),
           top: WP(-1),
@@ -317,10 +326,21 @@ const AllFood = props => {
                     // marginVertical: WP(2),
                   }
                 }>
-                <Image
-                  source={item.image}
-                  style={{width: WP(25), height: HP(10)}}
-                />
+                {item.image ? (
+                  <Image
+                    source={item.image}
+                    style={{width: WP(25), height: HP(10)}}
+                  />
+                ) : (
+                  <>
+                    <Image
+                      source={{
+                        uri: `https://babzbackend.herokuapp.com${item?.photo}`,
+                      }}
+                      style={{width: WP(25), height: HP(10)}}
+                    />
+                  </>
+                )}
               </TouchableOpacity>
 
               <>
@@ -336,7 +356,7 @@ const AllFood = props => {
                         fontWeight: 'bold',
                         fontFamily: 'Montserrat-Medium',
                       }}>
-                      {item?.name}
+                      {item?.name ? item?.name : item?.foodname}
                     </ListItem.Title>
                     <ListItem.Subtitle
                       style={{
@@ -375,104 +395,6 @@ const AllFood = props => {
               </ListItem.Subtitle>
             </ListItem>
           </View>
-        )}
-      />
-
-
-      <FlatList
-        data={AllFood}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        ListEmptyComponent={renderEmptyContainer()}
-        style={{
-          height: WP(115),
-          top: WP(-1),
-          left: WP(2),
-        }}
-        renderItem={({item}) => (
-          console.log(
-            `https://babzbackend.herokuapp.com${item?.photo}`,
-            'aaaaa',
-          ),
-          (
-            <View style={{top: WP(6)}}>
-              <ListItem bottomDivider>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('DetailStack', {params: item})
-                  }
-                  style={
-                    {
-                      // backgroundColor: generateColor(),
-                      // height: WP(10),
-                      // width: WP(10),
-                      // borderRadius: WP(10),
-                      // marginVertical: WP(2),
-                    }
-                  }>
-                  <Image
-                    source={{
-                      // uri: `https://babzbackend.herokuapp.com/${props.route?.params?.params?.photo}`,
-
-                      uri: `https://babzbackend.herokuapp.com${item?.photo}`,
-                    }}
-                    style={{width: WP(25), height: HP(10)}}
-                  />
-                </TouchableOpacity>
-
-                <>
-                  <ListItem.Content>
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate('DetailStack', {params: item})
-                      }>
-                      <ListItem.Title
-                        style={{
-                          fontSize: WP(4),
-                          color: 'black',
-                          fontWeight: 'bold',
-                          fontFamily: 'Montserrat-Medium',
-                        }}>
-                        {item?.foodname}
-                      </ListItem.Title>
-                      <ListItem.Subtitle
-                        style={{
-                          fontSize: WP(3),
-                          color: COLOR.primaryBrown,
-                          fontWeight: '300',
-                          fontFamily: 'Montserrat-Light',
-                        }}>
-                        {item?.period_date}
-                      </ListItem.Subtitle>
-                    </TouchableOpacity>
-                  </ListItem.Content>
-                </>
-                <ListItem.Subtitle
-                  style={{
-                    fontSize: WP(4),
-                    color: generateColor(),
-                    fontWeight: 'bold',
-                    fontFamily: 'Montserrat-Light',
-                  }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      width: 100,
-                    }}>
-                    {/* <TouchableOpacity onPress={() => showConfirmDialog(item?.id)}>
-            <Text>Delete</Text>
-          </TouchableOpacity> */}
-                    {/* 
-          <TouchableOpacity
-            onPress={() => navigation.navigate('EditStack', {item})}>
-            <Text>Edit</Text>
-          </TouchableOpacity> */}
-                  </View>
-                </ListItem.Subtitle>
-              </ListItem>
-            </View>
-          )
         )}
       />
     </View>

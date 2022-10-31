@@ -8,6 +8,7 @@ import {
   FlatList,
   Alert,
   ImageBackground,
+  TextInput,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -457,11 +458,14 @@ const Dashboard = props => {
   const {navigation} = props;
   const user = useSelector(state => state?.auth?.login_user?.user);
   const AllFood = useSelector(state => state?.transaction?.data || []);
-  console.log(AllFood, 'lmlsmlsm');
   const [profiletatus, setprofiletatus] = useState(false);
   const [bussinessStatus, setBussinessStatus] = useState(false);
   const [complinanceStatus, setComplinanceStatus] = useState(false);
   const [bankStatus, setBankStatus] = useState(false);
+
+  const [search, setSearch] = useState('');
+  const [filteredDataSource, setFilteredDataSource] = useState([]);
+  const [masterDataSource, setMasterDataSource] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -519,8 +523,6 @@ const Dashboard = props => {
     );
   };
 
-
-
   const showConfirmDialog = id => {
     return Alert.alert(
       'Are your sure?',
@@ -545,6 +547,17 @@ const Dashboard = props => {
 
   const DeleteUserDetails = id => {
     dispatch(deleteUserBankDetailsAction(id));
+  };
+  const [searchField, setSearchField] = useState('');
+  console.log(searchField, '999999999d');
+
+  const [data, setData] = useState([]);
+  const searchFilterFunction = person => {
+    let obj = Food2.find(
+      o => o.name.toLowerCase() === searchField.toLowerCase(),
+    );
+    setData(obj);
+    return obj;
   };
 
   return (
@@ -571,6 +584,17 @@ const Dashboard = props => {
             </TouchableOpacity> */}
           </View>
         </View>
+      </View>
+      <View
+        style={{backgroundColor: 'white', flexDirection: 'row', width: WP(90)}}>
+        <View style={{width: WP(20)}}>
+          <TextInput onChangeText={text => setSearchField(text)} />
+        </View>
+        {/* <View>
+          <TouchableOpacity>
+            <Text>search</Text>
+          </TouchableOpacity>
+        </View> */}
       </View>
 
       <FlatList

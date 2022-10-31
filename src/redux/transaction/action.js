@@ -27,7 +27,6 @@ export const getAllTransactionAction = () => {
     try {
       const {data} = await instance.get('/specific_food');
 
-      console.log(data, 'adlndknknksnknskn');
       dispatch({
         //
         type: GET_ALL_TRANSACTION_SUCCESS,

@@ -113,8 +113,13 @@ const Details = props => {
                 width: '90%',
                 color: 'black',
               }}>
-              {props.route?.params?.params?.description ||
-                props?.route?.params?.item?.procedure}
+              {(
+                <RenderHtml
+                  contentWidth={width}
+                  source={{html: props.route?.params?.params?.description}}
+                  enableExperimentalMarginCollapsing={true}
+                />
+              ) || props?.route?.params?.item?.procedure}
               {props.route?.params?.params?.procedure}
             </Text>
           </View>
