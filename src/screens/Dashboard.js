@@ -588,6 +588,7 @@ const Dashboard = props => {
       <View
         style={{backgroundColor: 'white', flexDirection: 'row', width: WP(90)}}>
         <View style={{width: WP(20)}}>
+          
           <TextInput onChangeText={text => setSearchField(text)} />
         </View>
         {/* <View>
